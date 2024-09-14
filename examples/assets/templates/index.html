@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask + Transcrypt</title>
+    <!-- Load style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <!-- Load js -->
+    <script type="module" src="">
+        import { Compteur } from "{{ url_for('static', filename='__target__/compteur.js') }}"
+
+        const compteur = new Compteur();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const countDisplay = document.getElementById("count");
+            const updatedDisplay = () => countDisplay.textContent = compteur.get_count();
+
+            document.getElementById("increment").addEventListener("click", () => {
+                compteur.increment();
+                updatedDisplay();
+            });
+
+            document.getElementById("decrement").addEventListener("click", () => {
+                compteur.decrement();
+                updatedDisplay();
+            });
+
+            document.getElementById("reset").addEventListener("click", () => {
+                compteur.reset();
+                updatedDisplay();
+            });
+
+            updatedDisplay();
+        })
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Compteur</h1>
+
+        <div>
+            <span id="count"></span>
+            <div class="btn-group">
+                <button type="button" id="decrement">Décrémenter</button>
+                <button type="button" id="reset">Initialiser</button>
+                <button type="button" id="increment">Incrémenter</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
